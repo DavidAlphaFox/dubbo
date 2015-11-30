@@ -75,7 +75,7 @@ public class Main {
 	                }
 	            });
             }
-            
+            // 逐个启动Container
             for (Container container : containers) {
                 container.start();
                 logger.info("Dubbo " + container.getClass().getSimpleName() + " started!");
