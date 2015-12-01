@@ -42,7 +42,17 @@ import com.alibaba.dubbo.config.support.Parameter;
  * @author william.liangf
  * @export
  */
-public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean, ApplicationContextAware, InitializingBean, DisposableBean {
+// FactoryBean
+// Interface to be implemented by objects used within a BeanFactory which are themselves factories.
+// If a bean implements this interface, it is used as a factory for an object to expose,
+// not directly as a bean instance that will be exposed itself.
+// InitializingBean
+// Interface to be implemented by beans that need to
+// react once all their properties have been set by a BeanFactory:
+// for example, to perform custom initialization,
+// or merely to check that all mandatory properties have been set.
+public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
+        ApplicationContextAware, InitializingBean, DisposableBean {
 
 	private static final long serialVersionUID = 213195494150089726L;
 	
@@ -74,6 +84,7 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
         return true;
     }
 
+    // 在bean的所有属性全部都完成之后，会调用该方法
     @SuppressWarnings({ "unchecked"})
     public void afterPropertiesSet() throws Exception {
         if (getConsumer() == null) {

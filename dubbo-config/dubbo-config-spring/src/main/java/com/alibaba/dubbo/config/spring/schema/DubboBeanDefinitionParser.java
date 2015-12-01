@@ -60,6 +60,12 @@ import com.alibaba.dubbo.rpc.Protocol;
  * @author william.liangf
  * @export
  */
+// BeanDefinitionParser
+// Interface used by the DefaultBeanDefinitionDocumentReader to handle custom,
+// top-level (directly under <beans/>) tags.
+// Implementations are free to turn the metadata in the custom tag into as many BeanDefinitions
+// as required.
+// 实现BeanDefinitionParser的parse方法就可以实现解析自定义标签的第一步了
 public class DubboBeanDefinitionParser implements BeanDefinitionParser {
     
     private static final Logger logger = LoggerFactory.getLogger(DubboBeanDefinitionParser.class);
