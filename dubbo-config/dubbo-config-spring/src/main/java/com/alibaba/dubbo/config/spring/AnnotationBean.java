@@ -145,18 +145,24 @@ public class AnnotationBean extends AbstractConfig implements DisposableBean,
             }
         }
     }
-
+    // 实现BeanPostProcessor的接口
+    // 在Bean被创建后，进行初始化后的调用
     public Object postProcessAfterInitialization(Object bean, String beanName)
             throws BeansException {
         if (! isMatchPackage(bean)) {
             return bean;
         }
         Service service = bean.getClass().getAnnotation(Service.class);
+        // 如果被标记为service
         if (service != null) {
+            // 创建新的ServiceBean
             ServiceBean<Object> serviceConfig = new ServiceBean<Object>(service);
             if (void.class.equals(service.interfaceClass())
                     && "".equals(service.interfaceName())) {
+                // 在service注解都没有设置名称的时候
                 if (bean.getClass().getInterfaces().length > 0) {
+                    // 如果我们从bean上能得到Class所实现的interface的时候
+                    // 我们需要将serviceConfig设置inteface
                     serviceConfig.setInterface(bean.getClass().getInterfaces()[0]);
                 } else {
                     throw new IllegalStateException("Failed to export remote service class " + bean.getClass().getName() + ", cause: The @Service undefined interfaceClass or interfaceName, and the service class unimplemented any interfaces.");
@@ -213,23 +219,29 @@ public class AnnotationBean extends AbstractConfig implements DisposableBean,
         }
         return bean;
     }
-    
+    // 实现BeanPostProcessor的接口
+    // 在Bean被创建后，进行初始化前进行的调用
     public Object postProcessBeforeInitialization(Object bean, String beanName)
             throws BeansException {
         if (! isMatchPackage(bean)) {
             return bean;
         }
+        // 得到当前Bean所有的方法
         Method[] methods = bean.getClass().getMethods();
         for (Method method : methods) {
             String name = method.getName();
+            // 按照一定的规则检查方法名字
             if (name.length() > 3 && name.startsWith("set")
                     && method.getParameterTypes().length == 1
                     && Modifier.isPublic(method.getModifiers())
                     && ! Modifier.isStatic(method.getModifiers())) {
                 try {
+                    // 方法上是否有Reference注解
                 	Reference reference = method.getAnnotation(Reference.class);
                 	if (reference != null) {
 	                	Object value = refer(reference, method.getParameterTypes()[0]);
+                        // value 不为null的时候，
+                        // 直接invoke
 	                	if (value != null) {
 	                		method.invoke(bean, new Object[] {  });
 	                	}
@@ -262,26 +274,41 @@ public class AnnotationBean extends AbstractConfig implements DisposableBean,
     private Object refer(Reference reference, Class<?> referenceClass) { //method.getParameterTypes()[0]
         String interfaceName;
         if (! "".equals(reference.interfaceName())) {
+            // 如果reference的interface的名字不为空
+            // 获取interfaceName
             interfaceName = reference.interfaceName();
         } else if (! void.class.equals(reference.interfaceClass())) {
+            // interface不是void
+            // 通过interface的class来获取名字
             interfaceName = reference.interfaceClass().getName();
         } else if (referenceClass.isInterface()) {
+            // 直接从参数中，获取interface的名字
             interfaceName = referenceClass.getName();
         } else {
             throw new IllegalStateException("The @Reference undefined interfaceClass or interfaceName, and the property type " + referenceClass.getName() + " is not a interface.");
         }
+        // 创建Key
         String key = reference.group() + "/" + interfaceName + ":" + reference.version();
         ReferenceBean<?> referenceConfig = referenceConfigs.get(key);
+        // 如果能得到相应的ReferenceBean
         if (referenceConfig == null) {
+            // 创建新的ReferenceBean
             referenceConfig = new ReferenceBean<Object>(reference);
             if (void.class.equals(reference.interfaceClass())
                     && "".equals(reference.interfaceName())
                     && referenceClass.isInterface()) {
+                // 当interfaceClass为空，interfaceName为空
+                // 且referenceClass是inteface的时候
+                // 设置referenceConfig的inteface
                 referenceConfig.setInterface(referenceClass);
             }
+
             if (applicationContext != null) {
+                // 当应用上下文applicationContext 不为空的时候
+                // 我们需要设置应用上下文
                 referenceConfig.setApplicationContext(applicationContext);
                 if (reference.registry() != null && reference.registry().length > 0) {
+                    // 如果reference的注册中心配置不为空
                     List<RegistryConfig> registryConfigs = new ArrayList<RegistryConfig>();
                     for (String registryId : reference.registry()) {
                         if (registryId != null && registryId.length() > 0) {
