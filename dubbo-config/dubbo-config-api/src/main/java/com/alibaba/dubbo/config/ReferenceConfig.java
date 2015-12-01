@@ -297,6 +297,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
         }
         //attributes通过系统context进行存储.
         StaticContext.getSystemContext().putAll(attributes);
+        // 创建代理
         ref = createProxy(map);
     }
     
@@ -349,14 +350,17 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
         } else {
             isJvmRefer = isInjvm().booleanValue();
         }
-		
+
 		if (isJvmRefer) {
+            // JVM内
 			URL url = new URL(Constants.LOCAL_PROTOCOL, NetUtils.LOCALHOST, 0, interfaceClass.getName()).addParameters(map);
 			invoker = refprotocol.refer(interfaceClass, url);
             if (logger.isInfoEnabled()) {
                 logger.info("Using injvm service " + interfaceClass.getName());
             }
 		} else {
+            // 远程的，要么是P2P的
+            // 要么是通过注册中心发现的
             if (url != null && url.length() > 0) { // 用户指定URL，指定的URL可能是对点对直连地址，也可能是注册中心URL
                 String[] us = Constants.SEMICOLON_SPLIT_PATTERN.split(url);
                 if (us != null && us.length > 0) {

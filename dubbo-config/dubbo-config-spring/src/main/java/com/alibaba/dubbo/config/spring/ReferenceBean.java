@@ -70,7 +70,8 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
 		this.applicationContext = applicationContext;
 		SpringExtensionFactory.addApplicationContext(applicationContext);
 	}
-    
+    // 自己是Bean工厂
+    // 返回对象
     public Object getObject() throws Exception {
         return get();
     }
