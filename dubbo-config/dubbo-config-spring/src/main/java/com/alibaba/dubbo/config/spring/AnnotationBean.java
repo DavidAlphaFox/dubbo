@@ -57,7 +57,24 @@ import com.alibaba.dubbo.config.annotation.Service;
  * @author william.liangf
  * @export
  */
-public class AnnotationBean extends AbstractConfig implements DisposableBean, BeanFactoryPostProcessor, BeanPostProcessor, ApplicationContextAware {
+// DisposableBean
+// Interface to be implemented by beans that want to release resources on destruction.
+// A BeanFactory is supposed to invoke the destroy method if it disposes a cached singleton.
+// An application context is supposed to dispose all of its singletons on close.
+// BeanFactoryPostProcessor
+// Allows for custom modification of an application context's bean definitions,
+// adapting the bean property values of the context's underlying bean factory.
+// Application contexts can auto-detect BeanFactoryPostProcessor beans in
+// their bean definitions and apply them before any other beans get created.
+// BeanPostProcessor
+// Factory hook that allows for custom modification of new bean instances,
+// e.g. checking for marker interfaces or wrapping them with proxies.
+// ApplicationContextAware
+// Interface to be implemented by any object that wishes to be notified of the ApplicationContext that it runs in.
+// Implementing this interface makes sense for example when an object requires access to a set of collaborating beans.
+// Note that configuration via bean references is preferable to implementing this interface just for bean lookup purposes.
+public class AnnotationBean extends AbstractConfig implements DisposableBean,
+        BeanFactoryPostProcessor, BeanPostProcessor, ApplicationContextAware {
 
     private static final long serialVersionUID = -7582802454287589552L;
 
