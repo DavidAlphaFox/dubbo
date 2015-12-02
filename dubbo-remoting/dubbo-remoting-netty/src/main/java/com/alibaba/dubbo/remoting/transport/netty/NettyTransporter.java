@@ -28,11 +28,11 @@ import com.alibaba.dubbo.remoting.Transporter;
 public class NettyTransporter implements Transporter {
 
     public static final String NAME = "netty";
-    
+    // 建立新的server
     public Server bind(URL url, ChannelHandler listener) throws RemotingException {
         return new NettyServer(url, listener);
     }
-
+    // 链接出去
     public Client connect(URL url, ChannelHandler listener) throws RemotingException {
         return new NettyClient(url, listener);
     }
