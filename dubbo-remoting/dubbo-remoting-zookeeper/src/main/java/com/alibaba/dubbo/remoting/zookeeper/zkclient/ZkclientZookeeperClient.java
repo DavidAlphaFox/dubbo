@@ -13,7 +13,8 @@ import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.remoting.zookeeper.ChildListener;
 import com.alibaba.dubbo.remoting.zookeeper.StateListener;
 import com.alibaba.dubbo.remoting.zookeeper.support.AbstractZookeeperClient;
-
+// 封装ZKClient的实现
+// 使用ZKClient监听状态
 public class ZkclientZookeeperClient extends AbstractZookeeperClient<IZkChildListener> {
 
 	private final ZkClient client;

@@ -272,7 +272,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
     protected void doNotify(URL url, NotifyListener listener, List<URL> urls) {
     	super.notify(url, listener, urls);
     }
-    
+    // 尝试从错误中恢复
     @Override
     protected void recover() throws Exception {
         // register
