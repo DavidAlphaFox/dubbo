@@ -50,7 +50,6 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>hessian-lite</artifactId>
-
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>

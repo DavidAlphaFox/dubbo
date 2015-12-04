@@ -141,6 +141,7 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>hessian-lite</artifactId>
 				<version>${hessian_lite_version}</version>
+				<systemPath>${pom.basedir}/lib/hessian-lite-3.2.1-fixed-2.jar</systemPath>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
