@@ -16,11 +16,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>com.alibaba</groupId>
 		<artifactId>opensesame</artifactId>
 		<version>2.0</version>
 	</parent>
+
 	<artifactId>dubbo-parent</artifactId>
 	<version>2.5.3</version>
 	<packaging>pom</packaging>
@@ -51,9 +53,9 @@
 		<module>dubbo-monitor</module>
 		<module>dubbo-config</module>
 		<module>dubbo</module>
-                <module>dubbo-simple</module>
-                <module>dubbo-admin</module>
-                <module>dubbo-demo</module>
+		<module>dubbo-simple</module>
+		<module>dubbo-admin</module>
+		<module>dubbo-demo</module>
 	</modules>
 	<profiles>
 		<profile>
@@ -136,6 +138,11 @@
 		<dependencies>
 			<!-- Common libs -->
 			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>hessian-lite</artifactId>
+				<version>${hessian_lite_version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring</artifactId>
 				<version>${spring_version}</version>
@@ -165,11 +172,7 @@
 				<artifactId>httpclient</artifactId>
 				<version>${httpclient_version}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>hessian-lite</artifactId>
-				<version>${hessian_lite_version}</version>
-			</dependency>
+
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
@@ -451,6 +454,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	<!--
 	<repositories>
 		<repository>
 			<id>opensesame.releases</id>
@@ -463,6 +467,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
+	-->
 	<issueManagement>
 		<system>jira</system>
 		<url>http://code.alibabatech.com/jira/browse/DUBBO</url>
