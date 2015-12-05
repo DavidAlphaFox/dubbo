@@ -78,7 +78,7 @@ public class DubboProtocol extends AbstractProtocol {
     private final ConcurrentMap<String, String> stubServiceMethodsMap = new ConcurrentHashMap<String, String>();
     
     private static final String IS_CALLBACK_SERVICE_INVOKE = "_isCallBackServiceInvoke";
-
+    // 服务者提供的返回方式
     private ExchangeHandler requestHandler = new ExchangeHandlerAdapter() {
         
         public Object reply(ExchangeChannel channel, Object message) throws RemotingException {
@@ -211,12 +211,14 @@ public class DubboProtocol extends AbstractProtocol {
             inv.getAttachments().put(IS_CALLBACK_SERVICE_INVOKE, Boolean.TRUE.toString());
         }
         String serviceKey = serviceKey(port, path, inv.getAttachments().get(Constants.VERSION_KEY), inv.getAttachments().get(Constants.GROUP_KEY));
-
+        // 从全局的的导出表中
+        // 找出对应的导出
         DubboExporter<?> exporter = (DubboExporter<?>) exporterMap.get(serviceKey);
         
         if (exporter == null)
             throw new RemotingException(channel, "Not found exported service: " + serviceKey + " in " + exporterMap.keySet() + ", may be version or group mismatch " + ", channel: consumer: " + channel.getRemoteAddress() + " --> provider: " + channel.getLocalAddress() + ", message:" + inv);
-
+        // 对应的导出存在
+        // 然后调用
         return exporter.getInvoker();
     }
     
@@ -227,12 +229,13 @@ public class DubboProtocol extends AbstractProtocol {
     public int getDefaultPort() {
         return DEFAULT_PORT;
     }
-
+    //导出一个服务
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
         URL url = invoker.getUrl();
         
         // export service.
         String key = serviceKey(url);
+        // 创建Exporter
         DubboExporter<T> exporter = new DubboExporter<T>(invoker, key, exporterMap);
         exporterMap.put(key, exporter);
         
@@ -255,7 +258,7 @@ public class DubboProtocol extends AbstractProtocol {
         
         return exporter;
     }
-    
+    // 开始服务
     private void openServer(URL url) {
         // find server.
         String key = url.getAddress();
@@ -291,6 +294,7 @@ public class DubboProtocol extends AbstractProtocol {
         }
         str = url.getParameter(Constants.CLIENT_KEY);
         if (str != null && str.length() > 0) {
+            // 获取传输方式
             Set<String> supportedTypes = ExtensionLoader.getExtensionLoader(Transporter.class).getSupportedExtensions();
             if (!supportedTypes.contains(str)) {
                 throw new RpcException("Unsupported client type: " + str);

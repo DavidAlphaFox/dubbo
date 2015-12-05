@@ -66,7 +66,7 @@ public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
 
     public void destroy() {
     }
-
+    // invoke之后，直接返回Rpc调用封装好的结果
     public Result invoke(Invocation invocation) throws RpcException {
         try {
             return new RpcResult(doInvoke(proxy, invocation.getMethodName(), invocation.getParameterTypes(), invocation.getArguments()));

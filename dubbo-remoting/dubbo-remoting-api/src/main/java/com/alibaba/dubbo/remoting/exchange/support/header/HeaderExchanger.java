@@ -29,6 +29,7 @@ import com.alibaba.dubbo.remoting.transport.DecodeHandler;
  * 
  * @author william.liangf
  */
+// 头交换
 public class HeaderExchanger implements Exchanger {
     
     public static final String NAME = "header";

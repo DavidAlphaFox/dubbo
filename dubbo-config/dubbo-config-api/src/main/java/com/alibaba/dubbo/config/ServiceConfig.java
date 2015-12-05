@@ -480,6 +480,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                         if (logger.isInfoEnabled()) {
                             logger.info("Register dubbo service " + interfaceClass.getName() + " url " + url + " to registry " + registryURL);
                         }
+                        // 获取服务类的代理调用者
                         Invoker<?> invoker = proxyFactory.getInvoker(ref, (Class) interfaceClass, registryURL.addParameterAndEncoded(Constants.EXPORT_KEY, url.toFullString()));
 
                         Exporter<?> exporter = protocol.export(invoker);
@@ -584,7 +585,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     public T getRef() {
         return ref;
     }
-
+    // 此时注入类方法实体
     public void setRef(T ref) {
         this.ref = ref;
     }

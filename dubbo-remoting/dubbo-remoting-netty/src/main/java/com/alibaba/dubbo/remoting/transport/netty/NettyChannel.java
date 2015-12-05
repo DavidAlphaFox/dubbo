@@ -53,7 +53,7 @@ final class NettyChannel extends AbstractChannel {
         }
         this.channel = channel;
     }
-
+    // 添加Channel管理
     static NettyChannel getOrAddChannel(org.jboss.netty.channel.Channel ch, URL url, ChannelHandler handler) {
         if (ch == null) {
             return null;

@@ -49,6 +49,7 @@ import com.alibaba.dubbo.remoting.transport.dispatcher.ChannelHandlers;
  * @author qian.lei
  * @author chao.liuc
  */
+// 默认的传输实现
 public class NettyServer extends AbstractServer implements Server {
     
     private static final Logger logger = LoggerFactory.getLogger(NettyServer.class);
@@ -59,7 +60,10 @@ public class NettyServer extends AbstractServer implements Server {
 
     private org.jboss.netty.channel.Channel channel;
     // 创建的时候，传入的handler
+    // handler为DecodeHandler(new HeaderExchangeHandler(handler))
+    // 其中嵌套最深的handler是业务handler
     public NettyServer(URL url, ChannelHandler handler) throws RemotingException{
+        // 在上面包一层心跳和线程池的名字
         super(url, ChannelHandlers.wrap(handler, ExecutorUtil.setThreadName(url, SERVER_THREAD_POOL_NAME)));
     }
 

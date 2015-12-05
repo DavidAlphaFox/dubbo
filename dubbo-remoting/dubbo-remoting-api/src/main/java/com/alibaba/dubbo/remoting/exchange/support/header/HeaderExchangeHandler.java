@@ -40,6 +40,8 @@ import com.alibaba.dubbo.remoting.transport.ChannelHandlerDelegate;
  * @author william.liangf
  * @author chao.liuc
  */
+// 自己实现个handler定义是不错的选择
+// 这样和Netty的Channel的定义就脱离开了
 public class HeaderExchangeHandler implements ChannelHandlerDelegate {
 
     protected static final Logger logger              = LoggerFactory.getLogger(HeaderExchangeHandler.class);
@@ -155,7 +157,7 @@ public class HeaderExchangeHandler implements ChannelHandlerDelegate {
                     NetUtils.filterLocalHost(url.getIp())
                     .equals(NetUtils.filterLocalHost(address.getAddress().getHostAddress()));
     }
-
+    // 从特定Channel收到消息
     public void received(Channel channel, Object message) throws RemotingException {
         channel.setAttribute(KEY_READ_TIMESTAMP, System.currentTimeMillis());
         ExchangeChannel exchangeChannel = HeaderExchangeChannel.getOrAddChannel(channel);
