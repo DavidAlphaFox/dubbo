@@ -56,6 +56,7 @@ import com.alibaba.dubbo.rpc.protocol.AbstractProtocol;
  * @author william.liangf
  * @author chao.liuc
  */
+// 实现Protocol
 public class DubboProtocol extends AbstractProtocol {
 
     public static final String NAME = "dubbo";
@@ -300,11 +301,12 @@ public class DubboProtocol extends AbstractProtocol {
 
     public <T> Invoker<T> refer(Class<T> serviceType, URL url) throws RpcException {
         // create rpc invoker.
+        // 创建一个Dubbo的invoker
         DubboInvoker<T> invoker = new DubboInvoker<T>(serviceType, url, getClients(url), invokers);
         invokers.add(invoker);
         return invoker;
     }
-    
+    // 创建远程服务的链接
     private ExchangeClient[] getClients(URL url){
         //是否共享连接
         boolean service_share_connect = false;

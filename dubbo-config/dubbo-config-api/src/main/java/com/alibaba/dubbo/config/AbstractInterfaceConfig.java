@@ -154,7 +154,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
             }
         }
     }
-    
+    // 从注册中心中找相应的服务URL
     protected List<URL> loadRegistries(boolean provider) {
         checkRegistry();
         List<URL> registryList = new ArrayList<URL>();

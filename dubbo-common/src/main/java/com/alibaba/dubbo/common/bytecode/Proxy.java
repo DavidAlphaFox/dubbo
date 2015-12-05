@@ -37,7 +37,8 @@ import com.alibaba.dubbo.common.utils.ReflectUtils;
  * 
  * @author qian.lei
  */
-
+// 本地的调用存根
+// 远程方法，都通过这个类完成调用
 public abstract class Proxy
 {
 	private static final AtomicLong PROXY_CLASS_COUNTER = new AtomicLong(0);
@@ -256,6 +257,7 @@ public abstract class Proxy
 	 * 
 	 * @return instance.
 	 */
+	// 每次都返回一个InvocationHandler
 	abstract public Object newInstance(InvocationHandler handler);
 
 	protected Proxy(){}

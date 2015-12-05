@@ -79,7 +79,7 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
     public Class<?> getObjectType() {
         return getInterfaceClass();
     }
-
+    // 永远是单例模式
     @Parameter(excluded = true)
     public boolean isSingleton() {
         return true;

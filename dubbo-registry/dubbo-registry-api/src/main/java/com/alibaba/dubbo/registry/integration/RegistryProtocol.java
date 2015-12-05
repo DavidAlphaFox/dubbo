@@ -47,6 +47,7 @@ import com.alibaba.dubbo.rpc.protocol.InvokerWrapper;
  * @author william.liangf
  * @author chao.liuc
  */
+// 注册用的协议
 public class RegistryProtocol implements Protocol {
 
     private Cluster cluster;

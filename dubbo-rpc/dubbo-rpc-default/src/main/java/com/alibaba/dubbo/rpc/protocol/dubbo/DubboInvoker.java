@@ -64,7 +64,8 @@ public class DubboInvoker<T> extends AbstractInvoker<T> {
         this.version = url.getParameter(Constants.VERSION_KEY, "0.0.0");
         this.invokers = invokers; 
     }
-
+    // 远程类被调用
+    // 会使用该方法
     @Override
     protected Result doInvoke(final Invocation invocation) throws Throwable {
         RpcInvocation inv = (RpcInvocation) invocation;

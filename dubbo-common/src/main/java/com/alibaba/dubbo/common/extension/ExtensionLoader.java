@@ -59,6 +59,8 @@ import com.alibaba.dubbo.common.utils.StringUtils;
  * @see com.alibaba.dubbo.common.extension.Adaptive
  * @see com.alibaba.dubbo.common.extension.Activate
  */
+// 扩展点包装类
+// 好灵活，但是也挺累的
 public class ExtensionLoader<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(ExtensionLoader.class);
@@ -519,7 +521,7 @@ public class ExtensionLoader<T> {
                     type + ")  could not be instantiated: " + t.getMessage(), t);
         }
     }
-    
+    // 自己完成类注入
     private T injectExtension(T instance) {
         try {
             if (objectFactory != null) {

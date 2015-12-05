@@ -113,7 +113,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 	public boolean isUnexported() {
 		return unexported;
 	}
-
+// 进行方法导出
     public synchronized void export() {
         if (provider != null) {
             if (export == null) {
@@ -281,7 +281,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
             doExportUrlsFor1Protocol(protocolConfig, registryURLs);
         }
     }
-
+    // 建立真正的导出用的URL
     private void doExportUrlsFor1Protocol(ProtocolConfig protocolConfig, List<URL> registryURLs) {
         String name = protocolConfig.getName();
         if (name == null || name.length() == 0) {

@@ -129,7 +129,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
     public List<URL> toUrls() {
         return urls;
     }
-
+    // 获取类
     public synchronized T get() {
         if (destroyed){
             throw new IllegalStateException("Already destroyed!");
@@ -156,7 +156,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
         invoker = null;
         ref = null;
     }
-
+//初始化
     private void init() {
 	    if (initialized) {
 	        return;
@@ -175,6 +175,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
             interfaceClass = GenericService.class;
         } else {
             try {
+                //得到接口类
 				interfaceClass = Class.forName(interfaceName, true, Thread.currentThread()
 				        .getContextClassLoader());
 			} catch (ClassNotFoundException e) {

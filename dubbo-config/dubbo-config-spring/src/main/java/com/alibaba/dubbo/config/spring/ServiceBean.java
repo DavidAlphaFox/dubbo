@@ -247,10 +247,11 @@ public class ServiceBean<T> extends ServiceConfig<T> implements InitializingBean
             }
         }
         if (! isDelay()) {
+            // 如果没有延迟的话，立刻进行方法注册
             export();
         }
     }
-
+// 这个Bean被销毁的时候，就取消注册
     public void destroy() throws Exception {
         unexport();
     }

@@ -37,6 +37,7 @@ import com.alibaba.dubbo.rpc.support.ProtocolUtils;
  * @author qian.lei
  * @author william.liangf
  */
+// protocol的默认实现
 public abstract class AbstractProtocol implements Protocol {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

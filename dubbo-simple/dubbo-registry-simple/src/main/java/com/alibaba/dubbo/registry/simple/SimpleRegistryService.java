@@ -151,7 +151,7 @@ public class SimpleRegistryService extends AbstractRegistry {
             }
         }
     }
-
+// 订阅服务变化
     protected void subscribed(final URL url, final NotifyListener listener) {
         if (Constants.ANY_VALUE.equals(url.getServiceInterface())) {
         	new Thread(new Runnable() {
