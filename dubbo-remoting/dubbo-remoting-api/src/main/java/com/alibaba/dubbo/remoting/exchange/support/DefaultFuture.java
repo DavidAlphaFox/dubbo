@@ -279,7 +279,7 @@ public class DefaultFuture implements ResponseFuture {
     }
 
     private static class RemotingInvocationTimeoutScan implements Runnable {
-
+        // 通过时间扫描来完成操作超时
         public void run() {
             while (true) {
                 try {
