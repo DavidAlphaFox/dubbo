@@ -54,7 +54,9 @@ public class NettyClient extends AbstractClient {
                                                                                            Executors.newCachedThreadPool(new NamedThreadFactory("NettyClientWorker", true)), 
                                                                                            Constants.DEFAULT_IO_THREADS);
     private ClientBootstrap bootstrap;
-
+    // 每个Client都会封装一个NettyChannel在里面
+    // 否则没办法得到相应Channel封装
+    // 也就没办法正常工作
     private volatile Channel channel; // volatile, please copy reference to use
     
     public NettyClient(final URL url, final ChannelHandler handler) throws RemotingException{
